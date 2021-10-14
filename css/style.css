@@ -13,6 +13,15 @@
 
 #submitted-container {
   display: none;
+  background: linear-gradient(
+    180deg,
+    var(--light-magenta) 0%,
+    var(--dark-magenta) 100%
+  );
+  border-radius: 20px;
+  padding: var(--container-padding);
+  text-align: center;
+  min-height: 200px;
 }
 
 #banner {
@@ -24,7 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-right: 25px;
+  margin-right: 60px;
   width: 100%;
 }
 
@@ -90,6 +99,21 @@
   margin-bottom: 0;
 }
 
+body{
+   width: 100%;
+   height: 100vh;
+   box-sizing: border-box;
+   overflow-x: hidden;
+   margin: 0;
+    padding: 0;
+    text-decoration: none;
+    min-height:100%;
+}
+
+html {
+  overflow-x: hidden;
+}
+
 .header {
   position: absolute;
   width: 100%;
@@ -107,6 +131,7 @@
 
 .header svg {
   margin-top: -170px;
+  overflow: hidden;
 }
 
 .logo {
@@ -125,7 +150,7 @@
 }
 
 .lucky-bg {
-  background-image: url('../images/lucky-bg.svg');
+  background-image: url('../lucky-bg.svg');
   width: 100px;
   height: 100px;
   display: flex;
@@ -235,14 +260,13 @@
   color: var(--vivid-yellow);
 }
 
+.btn:hover {
+  cursor: pointer;
+}
+
 .radio-input {
   width: 14px;
   height: 14px;
-  background-color: var(--light-magenta);
-}
-
-input[type='radio']:checked {
-  color: var(--vivid-yellow);
   background-color: var(--light-magenta);
 }
 
@@ -271,6 +295,7 @@ input[type='radio']:checked {
     var(--dark-magenta) 100%
   );
   color: var(--white);
+  max-width: 100%;
   text-align: center;
 }
 
@@ -278,11 +303,11 @@ input[type='radio']:checked {
   font-family: Montserrat;
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
-  line-height: 19px;
+  font-size: 10px;
   text-align: center;
   text-transform: uppercase;
   color: var(--white);
+  z-index: 10;
 }
 
 .charity {
@@ -349,9 +374,6 @@ input[type='radio']:checked {
   width: 100%;
 }
 
-.win-svg {
-}
-
 .raised-money-container {
   display: flex;
   justify-content: space-between;
@@ -379,8 +401,12 @@ input[type='radio']:checked {
 }
 
 .lorem-terms {
-  padding: 0 200px;
+  padding: 0 30px;
   text-align: center;
+}
+
+.lorem-terms p {
+  z-index: 200;
 }
 
 .raised-container {
@@ -411,7 +437,62 @@ input[type='radio']:checked {
   margin-bottom: var(--container-margin);
 }
 
-@media only screen and (min-width: 600px) {
+.invalid {
+  border: 2px solid red;
+}
+
+.terms-check {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  outline: none;
+  border: 3px solid var(--white);
+}
+
+.terms-check:before {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 60%;
+  margin: 20% auto;
+  border-radius: 50%;
+}
+.unchecked {
+  border: 3px solid red;
+}
+.unchecked:before {
+  background-color: red;
+}
+
+.terms-check:checked:before {
+  background: var(--vivid-yellow);
+}
+
+.terms-check:checked {
+  border-color: var(--white);
+  background: var(--vivid-yellow);
+}
+
+body {
+  background: yellow;
+}
+
+@media (min-width: 768px) {
+  body {
+    background-color: #44034f;
+  }
+}
+
+
+@media (min-width: 992px) {
+  body {
+    background-color: red;
+  }
+}
+
+
+@media (min-width: 1200px) {
   #container {
     top: 340px;
   }
@@ -426,6 +507,11 @@ input[type='radio']:checked {
 
   #win img {
     width: 480px;
+  }
+
+  .lorem-terms {
+    padding: 0 200px;
+    text-align: center;
   }
 
   .digit-container {
@@ -453,8 +539,9 @@ input[type='radio']:checked {
 
   .ruler-container {
     position: absolute;
-    top: 54.5px;
+    top: 10px;
     width: 100%;
+    z-index: 5;
   }
 
   .charity-details {
@@ -510,5 +597,109 @@ input[type='radio']:checked {
   .text-input {
     width: 100%;
     margin: 5px;
+  }
+}
+
+/* animation */
+
+.flip {
+  position: relative;
+  width: 95px;
+  height: 129px;
+  margin: 2px;
+  font-size: 100px;
+  line-height: 129px;
+  font-weight: bolder;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid var(--very-dark-magenta);
+}
+
+.digital::before,
+.digital::after {
+  position: absolute;
+  content: attr(data-number);
+  left: 0;
+  right: 0;
+  color: white;
+  background: linear-gradient(180deg, #5c006a 0%, #44034f 100%);
+  overflow: hidden;
+  -webkit-perspective: 160px;
+  perspective: 160px;
+}
+
+.digital::before {
+  top: 0;
+  bottom: 50%;
+  border-radius: 5px 5px 0 0;
+}
+
+.digital::after {
+  top: 50%;
+  bottom: 0;
+  line-height: 0;
+  border-radius: 0 0 5px 5px;
+}
+
+.digital.front::after,
+.digital.back::before {
+  z-index: 1;
+}
+
+.digital.back::after {
+  -webkit-transform-origin: top center;
+  -ms-transform-origin: top center;
+  transform-origin: top center;
+  -webkit-transform: rotateX(0.5turn);
+  transform: rotateX(0.5turn);
+  z-index: 2;
+}
+
+.digital.front::before {
+  z-index: 3;
+}
+
+.flip.running .front::before {
+  -webkit-transform-origin: center bottom;
+  -ms-transform-origin: center bottom;
+  transform-origin: center bottom;
+  -webkit-animation: frontFlipDown 0.6s ease-in-out;
+  animation: frontFlipDown 0.6s ease-in-out;
+  -webkit-box-shadow: 0 -2px 6px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 -2px 6px rgba(255, 255, 255, 0.3);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip.running .back::after {
+  -webkit-animation: backFlipDown 0.6s ease-in-out;
+  animation: backFlipDown 0.6s ease-in-out;
+}
+
+@-webkit-keyframes frontFlipDown {
+  to {
+    -webkit-transform: rotateX(0.5turn);
+    transform: rotateX(0.5turn);
+  }
+}
+
+@keyframes frontFlipDown {
+  to {
+    -webkit-transform: rotateX(0.5turn);
+    transform: rotateX(0.5turn);
+  }
+}
+
+@-webkit-keyframes backFlipDown {
+  to {
+    -webkit-transform: rotateX(0);
+    transform: rotateX(0);
+  }
+}
+
+@keyframes backFlipDown {
+  to {
+    -webkit-transform: rotateX(0);
+    transform: rotateX(0);
   }
 }
